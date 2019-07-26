@@ -1,9 +1,9 @@
 const ControllerUser = require('./user')
-const ControllerQuestion = require('./question')
+const ControllerSetSoal = require('./setSoal')
 const ControllerAnswer = require('./answer')
 
 module.exports =  {
     ControllerUser,
-    ControllerQuestion,
+    ControllerSetSoal,
     ControllerAnswer
 }

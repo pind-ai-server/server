@@ -10,9 +10,9 @@ let answerSchema = new mongoose.Schema({
   answers: {
     type: Array,
   },
-  questionId: {
+  setSoalId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Question'
+    ref: 'setSoal'
   }
 },{ timestamps: true })
 

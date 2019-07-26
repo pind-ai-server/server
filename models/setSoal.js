@@ -11,7 +11,7 @@ const soalSchema = new Schema({
       required : [true , 'foldername is required']
     },
     answerKey : Object,
-    answers : [{type : Schema.Types.ObjectId, ref : "answer"}]
+    answers : [{type : Schema.Types.ObjectId, ref : "Answer"}]
 });
 
 const setSoal = mongoose.model("setSoal", soalSchema);

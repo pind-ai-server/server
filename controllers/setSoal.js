@@ -10,7 +10,7 @@ class ControllerSetSoal {
             .catch(next)
     }
     static findAll(req, res, next) {
-        Question.find()
+        Question.find().populate('answers')
             .then(data => {
                 res.status(200).json(data)
             })

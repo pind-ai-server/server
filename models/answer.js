@@ -8,7 +8,7 @@ let answerSchema = new mongoose.Schema({
     type: String,
   },
   answers: {
-    type: Array,
+    type: Object,
   },
   setSoalId: {
     type: mongoose.Schema.Types.ObjectId,

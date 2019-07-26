@@ -10,14 +10,14 @@ class ControllerAnswer {
             .catch(next)
     }
     static findAll(req, res, next) {
-        Answer.find().populate('setSoalId')
+        Answer.find()
             .then(data => {
                 res.status(200).json(data)
             })
             .catch(next)
     }
     static findOne(req, res, next) {
-        Answer.findOne({ _id: req.params.id }).populate('setSoalId')
+        Answer.findOne({ _id: req.params.id })
             .then(data => {
                 res.status(200).json(data)
             })

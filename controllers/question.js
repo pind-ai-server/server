@@ -18,22 +18,22 @@ class ControllerQuestion {
     }
     static findOne(req, res, next) {
         Question.findOne({ _id: req.params.id })
-            .then(user => {
-                res.status(200).json(user)
+            .then(data => {
+                res.status(200).json(data)
             })
             .catch(next)
     }
     static update(req, res, next) {
         let input = { ...req.body }
         Question.findOneAndUpdate({ _id: req.params.id }, input, { new: true })
-            .then(user => {
-                res.status(200).json(user)
+            .then(data => {
+                res.status(200).json(data)
             })
             .catch(next)
     }
     static delete(req, res, next) {
         Question.findOneAndDelete({ _id: req.params.id })
-            .then(user => {
+            .then(data => {
                 res.status(200).json({ message: 'delete successfully' })
             })
             .catch(next)

@@ -19,7 +19,7 @@ let userSchema = new Schema({
         {
             validator: function(){
                 return new Promise((res, rej) =>{
-                User.findOne({email: this.email, _id: {ne: this._id}})
+                User.findOne({email: this.email, _id: {$ne: this._id}})
                     .then(data => {
                         if(data) {
                             res(false)
@@ -43,4 +43,3 @@ let userSchema = new Schema({
 let User = mongoose.model('user',userSchema)
 
 module.exports = User
-example

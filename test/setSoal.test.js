@@ -5,13 +5,13 @@ const clearSoal = require('../helpers/test')
 
 chai.use(chaiHttp)
 
-// before(function(done){
-//     clearSoal(done)
-// })
+before(function(done){
+    clearSoal(done)
+})
 
-// after(function(done){
-//     clearSoal(done)
-// })
+after(function(done){
+    clearSoal(done)
+})
 
 const expect = chai.expect
 
@@ -75,6 +75,65 @@ describe("set soal test", function(){
                 done()
             })
         })
+
+        it('should send an object error with status code 404', function(done){
+            
+            const newSoal = {
+                UserId : "",
+                title : "ujian matematika mid semester",
+                folderName : "heyho"
+            }
+
+            chai
+            .request(app)
+            .post('/setSoal')
+            .send(newSoal)
+            .end(function(err,res){
+                // console.log("check error====>",res.error);
+                expect(err).to.be.null
+                expect(res).to.have.status(404)
+                done()
+            })
+        })
+
+        it('should send an object error with status code 404 validation error', function(done){
+            
+            const newSoal = {
+                title : "ujian matematika mid semester",
+                folderName : "heyho"
+            }
+
+            chai
+            .request(app)
+            .post('/setSoal')
+            .send(newSoal)
+            .end(function(err,res){
+                // console.log("check error====>",res.error);
+                expect(err).to.be.null
+                expect(res).to.have.status(404)
+                done()
+            })
+        })
+
+        it('should send an object error with status code 500 validation error', function(done){
+            
+            const newSoal = {
+                userid : "1234567890",
+                title : "ujian matematika mid semester",
+                folderName : "heyho"
+            }
+
+            chai
+            .request(app)
+            .post('/setSoal')
+            .send(newSoal)
+            .end(function(err,res){
+                // console.log("check error====>",res.error);
+                expect(err).to.be.null
+                expect(res).to.have.status(404)
+                done()
+            })
+        })
     })
 
     describe('GET /setSoal', ()=>{
@@ -119,7 +178,7 @@ describe("set soal test", function(){
             .request(app)
             .get(`/setSoal/${soal1.UserId}/users`)
             .end(function(err,res){
-                console.log('response======>', res.body);
+                // console.log('response======>', res.body);
                 expect(err).to.be.null
                 expect(res).to.have.status(200)
                 expect(res.body).to.be.an('array')
@@ -186,7 +245,7 @@ describe("set soal test", function(){
             .request(app)
             .delete(`/setSoal/${soal1._id}`)
             .end(function(err,res){
-                console.log("response======>", res.body);
+                // console.log("response======>", res.body);
                 expect(err).to.be.null
                 expect(res).to.have.status(200)
                 expect(res.body).to.be.an('object')

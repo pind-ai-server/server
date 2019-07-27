@@ -17,7 +17,7 @@ after (async function () {
     await clearAllUser()
 })
 
-describe.only('Answer CRUD' , () => {
+describe('Answer CRUD' , () => {
     describe ('POST /answers/', () => {
         it('should return an object with 201 status code (new answer create)', function(done) {
             let answerDataFake = {

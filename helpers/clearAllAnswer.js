@@ -1,12 +1,12 @@
-const User = require('../models/user')
+const Answer = require('../models/answer')
 
 module.exports = {
-    clearAllUser () {
+    clearAllAnswer () {
         if(process.env.NODE_ENV === 'test') {
-            return User
+            return Answer
                 .deleteMany({})
                 .then(function (){
-                    console.log('All users deleted!')
+                    console.log('All answers deleted!')
                 })
                 .catch(err => {
                     console.log(err)

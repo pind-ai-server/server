@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "kantong-ajaib",
+  "private_key_id": "8c2818e899fc38b3ec07f823f72143caa7b80388",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDixn3HNK7wau8j\n4ShS6G0PZtHrWHGXy+x7uuzRVGoVgpjZRIhzqffi3RLwh00zDWmCUVVRlMPLA2ld\n/kV2vLOOTrAW2QErB31gek2aHWbCEGodxo0bAr3dFfJW+dkxZ8k2MDE10ALUaZC+\nVJTHEuROYe7idZ9BYS2X1rhd24nsA263kYbcLEkR+Pk3UFv2YlDIXXKaARvOH8de\nbAgvjHpedr/zDiupU3VPAbBUnQajodBSBrckmieLv7FTeQEVBVb1QgVZNrcgluKz\nkLi8BvbcdVvGlLCMA3EcbzAJFShITQ30nEqAkKRjDdS0oNChQ6Rcs2oIGRXFTF2t\n6nKpkze5AgMBAAECggEAM5CazQ8nsDdAhVIPTzrWgagJl5AW1ENkVIYej0K4lIeL\npeu1c0d0vDs0sUiyvycPlLhVxCUlmCYAcYT92o/x7CvsUmWppFUhpyxoNOD2mq4M\n0xRwxXGMJpd08V4Civ9ke1Pd/LR90Dro1L56zgF3tHMEVK4WNlGYgmwqo/zlkaqQ\nfSnJ2uJftG9St4avjYnCXHVXek1q75KwLUjB9Npe9dIoaWhU83dXhyBieUUJVfpp\nk/cDAnE5cS0gg2tNMmC4YJmDLZl9ZPoqLCwXXKPbVSj2Sms3fVpQ9Crb+8/Zh1J2\n60nULM2hfuRCb36PTHwLgJ6aNYciDvHfaUN+QxVRmQKBgQD6NGeWkltrhZqXEVq5\ndMoYhIQ4gUfNXsydbrwRl0J39gdVOUPkx5W1u84hS1ob979j/HDi1EfiRBxyOxdM\n/fkZN8VZh/2qxGkw271fV1Or6c5elTZLaoPbU+AwfhG+pK4OCFaCpbbGwFsCz+1t\n3cncSd7G1jsM/V6zHGHLWnfJswKBgQDoByln4FVflCZ2pTJcYMty8cXZqQus1UVb\nNLI1pexsBUJneB6ef2d1dQlomIHrIo+Ggivr/uOswjdv37qTl9KB0I62e8N1c9vM\n4HquAQqzEaNSesP1Uh41tfCbLB60PoGV1I2HbFNH9sa5gOiXqBqTh3Bvlk51zASl\nQgOpoqwq4wKBgQDjzk76oysljLGiFiT6ckGHbTBNmjfb3xKBzM7jXUshmho3GDqe\n1LGUk/gsDEVw7XOO/8twW0NP2h/kSbT/XsYslcDTsaPelZII8ClN417FSc2iBE05\nATQowAeBX2ecoqfvEtxhe6wc7gpvVw2gWK1wKrnxZCDDxPUyMwc/dZFXTQKBgBgD\nvb5Zkpx82epHuMmk3wm7ik232FSAEliZQKSa0rhvZusMnKas6wlWHq4rsq6iehZi\n3KblT60uwMwcbNQfz5LOAidS8ezzG9m9lhTyWKgl+DBuMl/uqt/GP+vfiiH/oive\nvvM4O/pjyTej5u7jYDTKvNFfzikU/5oXFgf1pTofAoGAZTehK2fSQYkLkEqskL30\n0TND2YFMt+Gq94mYv63Gg2Juezf7JuDW0Ei17EiqAyuXSVz9bxTCbjPRjVRMgVJk\nnQhnUFIV+b8eSOeQ9LKUWH0jdx4O1+uTtsh3sXPPkqB7x5YcUg0Y7KC5ER9JXftJ\nWSV7eRotsyJrTjsgHIoaWZo=\n-----END PRIVATE KEY-----\n",
+  "client_email": "kantong-ajaib-image@kantong-ajaib.iam.gserviceaccount.com",
+  "client_id": "117740681024399810660",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/kantong-ajaib-image%40kantong-ajaib.iam.gserviceaccount.com"
+}

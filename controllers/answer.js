@@ -1,13 +1,59 @@
 const Answer = require('../models/answer')
+const axios = require('axios')
+const answer = require('../helpers/extractAnswer')
+
 
 class ControllerAnswer {
     static create(req, res, next) {
-        let input = { ...req.body }
-        Answer.create(input)
-            .then(data => {
-                res.status(201).json(data)
-            })
-            .catch(next)
+        // let input = { ...req.body }
+        // const url = 'https://storage.googleapis.com/kantong-ajaib/IMG_20190727_153929.jpg'
+        const url = req.file.cloudStoragePublicUrl
+        const headers = {
+            "Content-Type": "application/json",
+            "Ocp-Apim-Subscription-Key": "65a472f265ac42daa621ad45cb923ad4"
+        }
+        axios({
+            url: 'https://westcentralus.api.cognitive.microsoft.com/vision/v2.0/read/core/asyncBatchAnalyze',
+            method: 'POST',
+            headers: headers,
+            data: {
+                "url": url
+            }
+        })
+        .then((data) => {
+            setTimeout(() => {
+                axios({
+                    url: data.headers['operation-location'],
+                    method: 'GET',
+                    headers: headers
+                })
+                    .then((result) => {
+                        if (result.data.recognitionResults) {
+                            const data = answer(result.data)
+                            res.json(data)
+                        } else {
+                            throw {
+                                status: 'error',
+                                data: 'take another photo'
+                            }
+                        }
+                    })
+                    .catch(err => {
+                        throw {
+                            status: 'error',
+                            data: 'take another photo'
+                        }
+                    })
+            }, 10000)
+        })
+        .catch(err => {
+            res.json(err)
+        })
+        // Answer.create(input)
+        //     .then(data => {
+        //         res.status(201).json(data)
+        //     })
+        //     .catch(next)
     }
     static findAll(req, res, next) {
         Answer.find()

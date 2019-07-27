@@ -12,10 +12,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@google-cloud/storage": "^3.0.3",
+    "axios": "^0.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
-    "mongoose": "^5.6.6"
+    "mongoose": "^5.6.6",
+    "multer": "^1.4.2"
   },
   "devDependencies": {
     "nyc": "^14.1.1",

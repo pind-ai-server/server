@@ -4,7 +4,6 @@ module.exports = function (done){
     let arrOfPromise = [
         SetSoal.deleteMany({})
     ]
-
     Promise.all(arrOfPromise)
         .then(()=>{
             done()

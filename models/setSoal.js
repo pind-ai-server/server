@@ -5,7 +5,10 @@ const soalSchema = new Schema({
         type : String,
         require : [ true , 'user id is required']
     },
-    title: String,
+    title: {
+      type : String,
+      required : [true , 'title is required']
+    },
     folderName : {
       type : String,
       required : [true , 'foldername is required']

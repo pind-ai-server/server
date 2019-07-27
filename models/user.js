@@ -36,7 +36,7 @@ let userSchema = new Schema({
     ],
         required : [true, 'email must be inserted'],
     },
-    answers : [{type : Schema.Types.ObjectId, ref : "answer"}]
+    setSoal : [{type : Schema.Types.ObjectId, ref : "setSoal"}]
 })
 
 

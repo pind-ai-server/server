@@ -22,7 +22,8 @@ app.use(express.json())
 app.use(route)
 
 app.use( function(err,req,res,next) {
-   console.log(err)
+   console.log('error handlingnya ini:')
+   console.log('x-x-x-x-x-x-x-x-x-' ,err, 'x-x-x-x-x-x-x-x-x-')
    if (err.name == 'ValidationError'){
        let messages = []
        for(key in err.errors){

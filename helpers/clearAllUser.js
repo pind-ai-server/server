@@ -1,8 +1,8 @@
-const { User } = require('../models/user')
+const User = require('../models/user')
 
 module.exports = {
     clearAllUser (done) {
-        if(processa.env.NODE_ENV === 'test') {
+        if(process.env.NODE_ENV === 'test') {
             return User
                 .deleteMany({})
                 .then(function (){

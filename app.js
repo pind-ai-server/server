@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 if (process.env.NODE_ENV) {
   require('dotenv').config();
 }
@@ -21,8 +23,10 @@ app.use(express.urlencoded({extended : false}))
 app.use(express.json())
 app.use(route)
 
+
+
 app.use( function(err,req,res,next) {
-   console.log(err)
+   // console.log("ini errorr handler ===>",err)
    if (err.name == 'ValidationError'){
        let messages = []
        for(key in err.errors){

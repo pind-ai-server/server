@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const soalSchema = new Schema({
     UserId: {
         type : String,
-        require : [ true , 'user id is required']
+        required : [ true , 'user id is required']
     },
     title: {
       type : String,

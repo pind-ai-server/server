@@ -9,7 +9,7 @@ class ControllerAnswer {
         const url = req.file.cloudStoragePublicUrl
         const headers = {
             "Content-Type": "application/json",
-            "Ocp-Apim-Subscription-Key": "65a472f265ac42daa621ad45cb923ad4"
+            "Ocp-Apim-Subscription-Key": process.env.AZURE_KEY
         }
         axios({
             url: 'https://westcentralus.api.cognitive.microsoft.com/vision/v2.0/read/core/asyncBatchAnalyze',

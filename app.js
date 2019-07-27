@@ -1,4 +1,4 @@
-if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV) {
   require('dotenv').config();
 }
 const express = require('express')
@@ -9,7 +9,7 @@ const app = express()
 
 const port = process.env.PORT
 
-let database = process.env.ATLASS_PASS ? `mongodb+srv://root:${process.env.ATLASS_PASS}@cluster0-qtp0t.gcp.mongodb.net/namaDB?retryWrites=true&w=majority` : 'mongodb://localhost:27017/pindai'
+let database = process.env.ATLASS_PASS ? `mongodb+srv://root:${process.env.ATLASS_PASS}@cluster0-qtp0t.gcp.mongodb.net/namaDB?retryWrites=true&w=majority` : 'mongodb://localhost:27017/pindai' + process.env.NODE_ENV
 mongoose.connect(database,{ useNewUrlParser : true },function(err){
     if(err) console.log('connection error')
     else console.log('mongoose is connected')
@@ -53,3 +53,5 @@ app.use( function(err,req,res,next) {
 app.listen(port,() => {
   console.log(`listening on port: ${port}!`)
 })
+
+module.exports = app

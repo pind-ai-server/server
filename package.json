@@ -4,18 +4,23 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test npx mocha --exit"
+    "dev": "NODE_ENV=development nodemon app.js",
+    "test": "NODE_ENV=test nyc npx mocha --exit",
+    "start": "node app.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "chai": "^4.2.0",
-    "chai-http": "^4.3.0",
     "cors": "^2.8.5",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
-    "mocha": "^6.2.0",
     "mongoose": "^5.6.6"
+  },
+  "devDependencies": {
+    "nyc": "^14.1.1",
+    "mocha": "^6.2.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0"
   }
 }

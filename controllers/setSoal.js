@@ -45,7 +45,7 @@ class ControllerSetSoal {
         let input = { ...req.body }
         Question.findOneAndUpdate({_id : req.params.id}, input, { new : true })
             .then(question =>{
-                res.status(201).json(question)
+                res.status(200).json(question)
             })
             .catch(next)
     }

@@ -3,5 +3,4 @@ const { ControllerUser } = require('../controllers')
 
 route.post('/login', ControllerUser.login)
 
-
 module.exports = route

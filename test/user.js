@@ -46,8 +46,6 @@ describe('User CRUD' , function () {
                     .post(`/users/login`)
                     .send(user)
                     .then(function(res) {
-                        // console.log('ini hasil testing')
-                        // console.log('-=-=-=-=-=-=--=',res.body, '-=-==---=-=--==-=--=')
                         expect(res).to.have.status(200)
                         expect(res.body).to.be.a('object')
                         expect(res.body).to.have.property('_id')
@@ -71,8 +69,6 @@ describe('User CRUD' , function () {
                     .post(`/users/login`)
                     .send(user)
                     .then(function(res) {
-                        // console.log('ini hasil testing')
-                        // console.log('-=-=-=-=-=-=--=',res.body, '-=-==---=-=--==-=--=')
                         expect(res).to.have.status(404)
                         expect(res.body).to.be.a('array')
                         expect(new Error).to.be.an('error')

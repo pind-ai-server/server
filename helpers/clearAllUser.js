@@ -1,5 +1,5 @@
 const User = require('../models/user')
-
+/* istanbul ignore file */
 module.exports = {
     clearAllUser () {
         if(process.env.NODE_ENV === 'test') {

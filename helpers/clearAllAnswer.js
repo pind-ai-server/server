@@ -1,5 +1,5 @@
 const Answer = require('../models/answer')
-
+/* istanbul ignore file */
 module.exports = {
     clearAllAnswer () {
         if(process.env.NODE_ENV === 'test') {

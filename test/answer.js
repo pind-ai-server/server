@@ -87,7 +87,7 @@ describe('Answer CRUD' , () => {
                 .then(function(res) {
                     expect(res).to.have.status(200)
                     expect(res.body).to.be.a('object')
-                    expect(res.body).to.have.property('data')
+                    expect(res.body).to.have.property('_id')
                     expect(res.body).to.have.property('name')
                     expect(res.body).to.have.property('score')
                     expect(res.body).to.have.property('answers')

@@ -2,7 +2,6 @@ const Answer = require('../models/answer')
 const axios = require('axios')
 const answer = require('../helpers/extractAnswer')
 
-
 class ControllerAnswer {
     static create(req, res, next) {
         // let input = { ...req.body }

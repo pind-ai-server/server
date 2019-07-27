@@ -9,7 +9,7 @@ class ControllerUser {
                 if (!data) {
                     User.create(user)
                         .then((user) => {
-                            res.status(200).json(user)
+                            res.status(201).json(user)
                         })
                         .catch(next)
                 } else {

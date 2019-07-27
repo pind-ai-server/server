@@ -1,11 +1,17 @@
 const Question = require('../models/setSoal')
-
+const User = require('../models/user')
 class ControllerSetSoal {
     static create(req, res, next) {
         let input = { ...req.body }
+        let passData = ''
         Question.create(input)
             .then(data => {
-                res.status(201).json(data)
+                passData = data
+                return User.findOneAndUpdate({ UserId: data.UserId }, { $push: { setSoal: data._id } }, { new: true })          
+                })
+            .then(user =>{        
+                console.log('hasil push ke user ini user',user);
+                res.status(201).json(passData)
             })
             .catch(next)
     }

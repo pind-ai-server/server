@@ -6,13 +6,12 @@ const { clearAllUser } = require('../helpers/clearAllUser')
 chai.use(chaiHttp);
 const expect = chai.expect
 
-before (  function (done) {
-     clearAllUser(done)
+before ( async function () {
+    await clearAllUser()
 })
 
 describe('User CRUD' , function () {
-    let userId
-    describe ('POST /login', function () {
+    describe ('POST /users/login', function () {
         it('should return an object with 201 status code (User login for the first time)', function(done) {
             let user = {
                 email : 'bilal@mail.com',
@@ -24,7 +23,6 @@ describe('User CRUD' , function () {
                 .post('/users/login')
                 .send(user)
                 .then(function(res) {
-                    userId = res.body._id
                     expect(res).to.have.status(201)
                     expect(res.body).to.be.a('object')
                     expect(res.body).to.have.property('_id')
@@ -45,7 +43,7 @@ describe('User CRUD' , function () {
                 }
                 chai
                     .request(app)
-                    .put(`/users/${userId}`)
+                    .post(`/users/login`)
                     .send(user)
                     .then(function(res) {
                         // console.log('ini hasil testing')
@@ -55,6 +53,30 @@ describe('User CRUD' , function () {
                         expect(res.body).to.have.property('_id')
                         expect(res.body).to.have.property('email')
                         expect(res.body).to.have.property('userName')
+                        done()
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        done()
+                    })
+            })
+            it('should return an object with 200 status code (user email validation error)', function(done) {
+                let user = {
+                    email : 'bilalmail.com',
+                    userName : 'Bilal',
+                    UserId: '1'
+                }
+                chai
+                    .request(app)
+                    .post(`/users/login`)
+                    .send(user)
+                    .then(function(res) {
+                        console.log('ini hasil testing')
+                        console.log('-=-=-=-=-=-=--=',res.body, '-=-==---=-=--==-=--=')
+                        expect(res).to.have.status(404)
+                        expect(res.body).to.be.a('array')
+                        expect(new Error).to.be.an('error')
+                        expect(res.body).to.contain(`${user.email} is not a valid email`)
                         done()
                     })
                     .catch(err => {

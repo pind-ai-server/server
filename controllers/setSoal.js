@@ -7,7 +7,7 @@ class ControllerSetSoal {
         Question.create(input)
             .then(data => {
                 passData = data
-                return User.findOneAndUpdate({ UserId: data.UserId }, { $push: { setSoal: data._id } }, { new: true })          
+                return User.findOneAndUpdate({ UserId: data.UserId }, { $push: { setSoal: data._id } }, { new: true })
                 })
             .then(user =>{        
                 console.log('hasil push ke user ini user',user);

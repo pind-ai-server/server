@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const route = require('express').Router()
 const user = require('./user')
 const answer = require('./answer')

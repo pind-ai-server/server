@@ -9,5 +9,4 @@ route.put('/:id', ControllerSetSoal.update)
 route.put('/:id/keyUpdate', ControllerSetSoal.keyUpdate)
 route.delete('/:id', ControllerSetSoal.delete)
 
-
 module.exports = route

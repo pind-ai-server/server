@@ -4,7 +4,11 @@ const Schema = mongoose.Schema
 let userSchema = new Schema({
     userName : {
         type : String,
-        required : [true, `first name is required`]
+        required : [true, `username is required`]
+    },
+    UserId : {
+        type : String,
+        required : [true, 'UserId is required']
     },
     email : {
         type : String,

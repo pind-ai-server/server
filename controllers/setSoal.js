@@ -25,7 +25,7 @@ class ControllerSetSoal {
     }
 
     static findUserSoal(req,res,next){
-        Question.findOne({UserId : req.params.userId})
+        Question.find({UserId : req.params.userId})
         .then(user =>{
             res.status(200).json(user)
         })

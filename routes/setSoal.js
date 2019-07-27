@@ -6,7 +6,7 @@ route.get('/:id', ControllerSetSoal.findOne)
 route.get('/:userId/users', ControllerSetSoal.findUserSoal)
 route.post('/', ControllerSetSoal.create)
 route.put('/:id', ControllerSetSoal.update)
-route.put('/:id', ControllerSetSoal.keyUpdate)
+route.put('/:id/keyUpdate', ControllerSetSoal.keyUpdate)
 route.delete('/:id', ControllerSetSoal.delete)
 
 

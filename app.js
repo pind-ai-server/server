@@ -1,8 +1,12 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* istanbul ignore file */
 =======
 
 >>>>>>> backup test
+=======
+/* istanbul ignore else */
+>>>>>>> testing 100% done
 if (process.env.NODE_ENV) {
    require('dotenv').config();
 }
@@ -12,6 +16,7 @@ const route = require('./routes')
 const app = express()
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 const mongoose = require('mongoose')
 const mongooseConnect = require('./helpers/mongooseConnect')
@@ -19,12 +24,20 @@ const mongooseConnect = require('./helpers/mongooseConnect')
 
 const port = process.env.PORT
 =======
+=======
+const { errorHandling } = require ('./middlewares/errorHandling')
+>>>>>>> testing 100% done
 const port = 3000
 >>>>>>> testing server up to 100%
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+/* istanbul ignore next */
+>>>>>>> testing 100% done
 let database = process.env.ATLASS_PASS ? `mongodb+srv://root:${process.env.ATLASS_PASS}@cluster0-qtp0t.gcp.mongodb.net/namaDB?retryWrites=true&w=majority` : 'mongodb://localhost:27017/pindai' + process.env.NODE_ENV
 mongoose.connect(database, { useNewUrlParser: true }, function (err) {
+/* istanbul ignore next */   
    if (err) console.log('connection error')
    else console.log('mongoose is connected')
 })
@@ -53,6 +66,7 @@ app.use(route)
 
 <<<<<<< HEAD
 app.use(function (err, req, res, next) {
+<<<<<<< HEAD
    if (err.name == 'ValidationError') {
       let messages = []
       for (key in err.errors) {
@@ -101,6 +115,9 @@ app.use( function(err,req,res,next) {
          res.status(err.code).json({ message: err.message })
       }
    }
+=======
+   return errorHandling(err,req,res,next)
+>>>>>>> testing 100% done
 })
 
 app.listen(port, () => {

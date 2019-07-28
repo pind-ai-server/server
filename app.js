@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* istanbul ignore file */
 =======
 
@@ -7,6 +8,9 @@
 =======
 /* istanbul ignore else */
 >>>>>>> testing 100% done
+=======
+/* istanbul ignore else */
+>>>>>>> test 100%
 if (process.env.NODE_ENV) {
    require('dotenv').config();
 }
@@ -20,6 +24,7 @@ const app = express()
 =======
 const mongoose = require('mongoose')
 const mongooseConnect = require('./helpers/mongooseConnect')
+<<<<<<< HEAD
 >>>>>>> backup test
 
 const port = process.env.PORT
@@ -42,28 +47,30 @@ mongoose.connect(database, { useNewUrlParser: true }, function (err) {
    else console.log('mongoose is connected')
 })
 =======
+=======
+const errorhandler = require('./helpers/errorHandler')
+
+const port = process.env.PORT
+/* istanbul ignore next */
+>>>>>>> test 100%
 let database = process.env.ATLASS_PASS ? `mongodb+srv://root:${process.env.ATLASS_PASS}@cluster0-qtp0t.gcp.mongodb.net/namaDB?retryWrites=true&w=majority` : process.env.NODE_ENV === 'test' ? process.env.mongoURLTest : process.env.mongoURLDev
 
 mongooseConnect(database, mongoose)
-// .then(()=>{
-//    console.log('mongoose is connected')
-// })
-// .catch(err=>{
-//    console.log('connection error')
-// })
-// mongoose.connect(database,{ useNewUrlParser : true },function(err){
-//     if(err) console.log('connection error')
-//     else console.log('mongoose is connected')
-// })
 
+<<<<<<< HEAD
 >>>>>>> backup test
 mongoose.set('useFindAndModify', false);
+=======
+
+// mongoose.set('useFindAndModify', false);
+>>>>>>> test 100%
 
 app.use(cors())
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(route)
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 app.use(function (err, req, res, next) {
 <<<<<<< HEAD
@@ -119,6 +126,9 @@ app.use( function(err,req,res,next) {
    return errorHandling(err,req,res,next)
 >>>>>>> testing 100% done
 })
+=======
+app.use(errorhandler)
+>>>>>>> test 100%
 
 app.listen(port, () => {
    console.log(`listening on port: ${port}!`)

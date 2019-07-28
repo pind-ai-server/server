@@ -2,6 +2,7 @@ const User = require('../models/user')
 
 class ControllerUser {
     static login(req, res, next) {
+        
         let user = { ...req.body }
         User
             .findOne({email : user.email}).populate('setSoal')

@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-
 let userSchema = new Schema({
     userName : {
         type : String,
@@ -25,8 +24,5 @@ let userSchema = new Schema({
     },
     setSoal : [{type : Schema.Types.ObjectId, ref : "setSoal"}]
 })
-
-
 let User = mongoose.model('user',userSchema)
-
 module.exports = User

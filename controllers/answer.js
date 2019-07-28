@@ -2,6 +2,7 @@ const Answer = require('../models/answer')
 const axios = require('axios')
 const extractAnswer = require('../helpers/extractAnswer')
 const extractName = require('../helpers/extractName')
+const extractNameAnswer = require('../helpers/extractNameAnswer')
 
 class ControllerAnswer {
     static create(req, res, next) {
@@ -10,6 +11,7 @@ class ControllerAnswer {
             "Content-Type": "application/json",
             "Ocp-Apim-Subscription-Key": process.env.AZURE_KEY
         }
+        console.time('azure-vision')
         axios({
             url: 'https://westcentralus.api.cognitive.microsoft.com/vision/v2.0/read/core/asyncBatchAnalyze',
             method: 'POST',
@@ -26,9 +28,15 @@ class ControllerAnswer {
                     headers: headers
                 })
                     .then((result) => {
+                        console.timeEnd('azure-vision')
                         if (result.data.recognitionResults) {
+                            // const { answers, name } = extractNameAnswer(result.data)
+                            console.time('answer')
                             const answers = extractAnswer(result.data)
+                            console.timeEnd('answer')
+                            console.time('name')
                             const name = extractName(result.data)
+                            console.timeEnd('name')
                             res.json({
                                 status: 'success',
                                 data: {

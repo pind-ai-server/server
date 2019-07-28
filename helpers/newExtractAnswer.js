@@ -1,26 +1,9 @@
-function answer(data) {
-  let DATA = data.recognitionResults[0].lines
+function extractAnswer(newData) {
+  let result = {}
   let tes = []
   for (let i = 1; i <= 50; i++) {
     tes.push(`${i}`)
   }
-  let indexStartJawaban
-  DATA.forEach((data, i) => {
-    if (data.text === "JAWABAN (Hitamkan salah satu pilihan jawaban yang benar)") {
-      indexStartJawaban = i
-    }
-  })
-
-  // check if jawaban dll blurry or not detected
-  if (!indexStartJawaban) {
-    return {
-      status: 'error',
-      data: 'take another photo'
-    }
-  }
-
-  let result = {}
-  let newData = DATA.slice(indexStartJawaban + 1)
   try {
     newData.forEach(data => {
       tes.forEach(num => {
@@ -74,4 +57,4 @@ function answer(data) {
   }
 }
 
-module.exports = answer
+module.exports = extractAnswer

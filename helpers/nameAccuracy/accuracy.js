@@ -11,6 +11,8 @@ const fs = require('fs')
 
 const answer = require('../extractAnswer')
 const extractName = require('../extractName')
+const extractNameAnswer = require('../extractNameAnswer')
+
 const answerTrueKey = require('./answerTrue')
 const nameTrueKey = require('./nameTrue')
 const keyfileStorage = require('../../keyfile.json')
@@ -40,8 +42,9 @@ function checkResultImage(url_image) {
           .then((result) => {
             if (result.data) {
               // console.log('ini data hasil dari microsoft', result.data)
-                const answers = answer(result.data)
-                const name = extractName(result.data)
+                // const answers = answer(result.data)
+                // const name = extractName(result.data)
+                const { name, answers } = extractNameAnswer(result.data)
                 console.log('status answers', answers.status)
                 console.log('status name', name.status)
                 if (answers.status === 'error' || name.status === 'error') {
@@ -52,6 +55,7 @@ function checkResultImage(url_image) {
                 }
                 resolve({ url_image, name, answers })
             } else {
+              console.log(result.data)
               resolve ({
                     status: 'error',
                     data: 'take another photo'
@@ -59,6 +63,7 @@ function checkResultImage(url_image) {
             }
           })
           .catch(err => {
+            console.log(err)
               resolve ({
                   status: 'error',
                   data: 'take another photo'

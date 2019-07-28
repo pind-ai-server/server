@@ -16,6 +16,7 @@ const getPublicUrl = (filename) => {
 }
 
 const sendUploadToGCS = (req, res, next) => {
+  console.time('upload')
   if (req.file === undefined) {
     return next()
   }
@@ -36,7 +37,7 @@ const sendUploadToGCS = (req, res, next) => {
   })
 
   stream.on('finish', () => {
-
+    console.timeEnd('upload')
     req.file.cloudStorageObject = gcsname
     file.makePublic().then(() => {
       req.file.cloudStoragePublicUrl = getPublicUrl(gcsname)
@@ -51,7 +52,7 @@ const Multer = require('multer'),
       multer = Multer({
         storage: Multer.MemoryStorage,
         limits: {
-          fileSize: 5 * 1024 * 1024
+          fileSize: 6 * 1024 * 1024
         }
       })
 

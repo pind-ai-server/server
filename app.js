@@ -1,6 +1,5 @@
-
 if (process.env.NODE_ENV) {
-  require('dotenv').config();
+   require('dotenv').config();
 }
 const express = require('express')
 const cors = require('cors')
@@ -28,7 +27,7 @@ mongooseConnect(database, mongoose)
 mongoose.set('useFindAndModify', false);
 
 app.use(cors())
-app.use(express.urlencoded({extended : false}))
+app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(route)
 
@@ -55,16 +54,16 @@ app.use( function(err,req,res,next) {
    }
 
    else {
-     if(err.name == 'MongoError'){
-         res.status(500).json({ message : err.errmsg })
-     }else {
-        res.status(err.code).json({ message : err.message })
-     }
+      if (err.name == 'MongoError') {
+         res.status(500).json({ message: err.errmsg })
+      } else {
+         res.status(err.code).json({ message: err.message })
+      }
    }
 })
 
-app.listen(port,() => {
-  console.log(`listening on port: ${port}!`)
+app.listen(port, () => {
+   console.log(`listening on port: ${port}!`)
 })
 
 module.exports = app

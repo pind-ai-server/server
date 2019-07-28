@@ -2,7 +2,8 @@ const chai = require('chai')
 const chaiHttp = require('chai-http')
 const app = require('../app')
 const clearSoal = require('../helpers/test')
-
+const mongooseConnect = require("../helpers/mongooseConnect")
+const mongoose = require('mongoose')
 chai.use(chaiHttp)
 
 before(function(done){
@@ -48,6 +49,27 @@ describe("set soal test", function(){
 
         })
 
+        // it('should get error MongoError', function(done){
+        //     const loginUser = {
+        //         userName : "pakguru",
+        //         email : "pak@mail.com",
+        //         UserId : "1234567890",
+        //     }
+
+        //     chai
+        //     .request(app)
+        //     .post('/users/login')
+        //     .send(loginUser)
+        //     .end(function(err,res){
+        //         expect(err).to.be.null
+        //         expect(res).to.have.status(500)
+        //         expect(res.body).to.be.an('object')
+        //         expect(res.body).to.have.property('message')
+        //         done()
+        //     })
+
+        // })
+
         it('should send an object of inserted question with 201 status code', function(done){
             const newSoal = {
                 UserId : "1234567890",
@@ -75,6 +97,8 @@ describe("set soal test", function(){
                 done()
             })
         })
+
+        
 
         it('should send an object error with status code 404', function(done){
             
@@ -188,6 +212,9 @@ describe("set soal test", function(){
     })
 
     describe('PUT /setSoal',() =>{
+        let functionUnderTest;
+        let someFunction;
+
         it('should return an object with updated value', function(done){
             const updateData = {
                 title : "ujian Matematika kelas 12 mid semester"
@@ -239,6 +266,19 @@ describe("set soal test", function(){
         })
     })
 
+    describe('Error Mongoose', ()=>{
+        it('should return an object error with message of Mongo error', function(done){
+            mongooseConnect("xxx",mongoose)
+            .then(result =>{
+                expect(result).to.equal(false)
+                done()
+            })
+            .catch(err=>[
+                done(err)
+            ])
+        })
+    })
+
     describe('Delete /setSoal', ()=>{
         it("should return an object with message of success delete", function(done){
             chai
@@ -251,7 +291,6 @@ describe("set soal test", function(){
                 expect(res.body).to.be.an('object')
                 expect(res.body).to.have.property('message')
                 expect(res.body.message).to.be.equal('delete successfully')
-
                 done()
             })
         })

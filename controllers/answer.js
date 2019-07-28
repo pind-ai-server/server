@@ -1,15 +1,14 @@
 const Answer = require('../models/answer')
 const axios = require('axios')
-const answer = require('../helpers/extractAnswer')
+const extractAnswer = require('../helpers/extractAnswer')
+const extractName = require('../helpers/extractName')
 
 class ControllerAnswer {
     static create(req, res, next) {
-        // let input = { ...req.body }
-        // const url = 'https://storage.googleapis.com/kantong-ajaib/IMG_20190727_153929.jpg'
         const url = req.file.cloudStoragePublicUrl
         const headers = {
             "Content-Type": "application/json",
-            "Ocp-Apim-Subscription-Key": "65a472f265ac42daa621ad45cb923ad4"
+            "Ocp-Apim-Subscription-Key": process.env.AZURE_KEY
         }
         axios({
             url: 'https://westcentralus.api.cognitive.microsoft.com/vision/v2.0/read/core/asyncBatchAnalyze',
@@ -28,8 +27,15 @@ class ControllerAnswer {
                 })
                     .then((result) => {
                         if (result.data.recognitionResults) {
-                            const data = answer(result.data)
-                            res.json(data)
+                            const answers = extractAnswer(result.data)
+                            const name = extractName(result.data)
+                            res.json({
+                                status: 'success',
+                                data: {
+                                    name,
+                                    answers,
+                                }
+                            })
                         } else {
                             throw {
                                 status: 'error',

@@ -5,7 +5,6 @@ const answer = require('../helpers/extractAnswer')
 class ControllerAnswer {
     static create(req, res, next) {
         // let input = { ...req.body }
-        // const url = 'https://storage.googleapis.com/kantong-ajaib/IMG_20190727_153929.jpg'
         const url = req.file.cloudStoragePublicUrl
         const headers = {
             "Content-Type": "application/json",

@@ -1,8 +1,9 @@
 const route = require('express').Router()
 const { ControllerAnswer } = require('../controllers')
-const {multer, sendUploadToGCS}= require('../helpers/imageUpload')
+// const {multer, sendUploadToGCS}= require('../helpers/imageUpload')
 
-route.post('/', multer.single('image'), sendUploadToGCS, ControllerAnswer.create)
+// route.post('/', multer.single('image'), sendUploadToGCS, ControllerAnswer.create)
+route.post('/', ControllerAnswer.create)
 route.get('/', ControllerAnswer.findAll)
 route.get('/:id', ControllerAnswer.findOne)
 route.put('/:id', ControllerAnswer.update)

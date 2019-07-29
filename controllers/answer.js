@@ -5,60 +5,74 @@ const extractName = require('../helpers/extractName')
 
 class ControllerAnswer {
     static create(req, res, next) {
-        // const url = req.file.cloudStoragePublicUrl
-        // const headers = {
-        //     "Content-Type": "application/json",
-        //     "Ocp-Apim-Subscription-Key": process.env.AZURE_KEY
-        // }
-        // axios({
-        //     url: 'https://westcentralus.api.cognitive.microsoft.com/vision/v2.0/read/core/asyncBatchAnalyze',
-        //     method: 'POST',
-        //     headers: headers,
-        //     data: {
-        //         "url": url
-        //     }
-        // })
-        // .then((data) => {
-        //     setTimeout(() => {
-        //         axios({
-        //             url: data.headers['operation-location'],
-        //             method: 'GET',
-        //             headers: headers
-        //         })
-        //             .then((result) => {
-        //                 if (result.data.recognitionResults) {
-        //                     const answers = extractAnswer(result.data)
-        //                     const name = extractName(result.data)
-        //                     res.json({
-        //                         status: 'success',
-        //                         data: {
-        //                             name,
-        //                             answers,
-        //                         }
-        //                     })
-        //                 } else {
-        //                     throw {
-        //                         status: 'error',
-        //                         data: 'take another photo'
-        //                     }
-        //                 }
-        //             })
-        //             .catch(err => {
-        //                 throw {
-        //                     status: 'error',
-        //                     data: 'take another photo'
-        //                 }
-        //             })
-        //     }, 10000)
-        // })
-        // .catch(err => {
-        //     res.json(err)
-        // }) 
-        Answer.create(req.body)
-            .then(data => {
-                res.status(201).json(data)
+        console.log('masuk create answer server')
+        const url = req.file.cloudStoragePublicUrl
+        const headers = {
+            "Content-Type": "application/json",
+            "Ocp-Apim-Subscription-Key": process.env.AZURE_KEY
+        }
+        axios({
+            url: 'https://westcentralus.api.cognitive.microsoft.com/vision/v2.0/read/core/asyncBatchAnalyze',
+            method: 'POST',
+            headers: headers,
+            data: {
+                "url": url
+            }
+        })
+        .then((data) => {
+            setTimeout(() => {
+                axios({
+                    url: data.headers['operation-location'],
+                    method: 'GET',
+                    headers: headers
+                })
+                    .then((result) => {
+                        if (result.data.recognitionResults) {
+                            const answers = extractAnswer(result.data)
+                            const name = extractName(result.data)
+                            console.log('name', name)
+                            console.log('answers', answers)
+                            if (name.status === 'success' && answers.status === 'success') {
+                                res.json({
+                                    status: 'success',
+                                    data: {
+                                        name: name.data,
+                                        answers: answers.data,
+                                    }
+                                })
+                            } else {
+                                throw {
+                                    status: 'error',
+                                    data: 'take another photo'
+                                }
+                            }
+                            
+                        } else {
+                            throw {
+                                status: 'error',
+                                data: 'take another photo'
+                            }
+                        }
+                    })
+                    .catch(err => {
+                        res.json({
+                            status: 'error',
+                            data: 'take another photo'
+                        })
+                    })
+            }, 10000)
+        })
+        .catch(err => {
+            res.json({
+                status: 'error',
+                data: 'take another photo'
             })
-            .catch(next)
+        })
+        // Answer.create(input)
+        //     .then(data => {
+        //         res.status(201).json(data)
+        //     })
+        //     .catch(next)
     }
     static findAll(req, res, next) {
         Answer.find().populate('setSoalId')

@@ -55,16 +55,19 @@ function extractName(data) {
       || index === 0) {
       minLenght = one.length
       minLenghtIndex = index
-      minLengthText = one
+      minLengthText = {
+        status: 'success',
+        data: one.text
+      }
     }
   })
+  // if name not found
   if (minLenght < rangeName.minRange || minLenght > rangeName.maxRange) {
     minLenght = 0
     minLenghtIndex = 0
     minLengthText = { 
-      length: 0, 
-      range: [], 
-      text: ''
+      status: 'error',
+      data: 'take another photo'
     }
   }
   // console.log('ini nilai minLength', minLenght)

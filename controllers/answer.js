@@ -5,6 +5,7 @@ const extractName = require('../helpers/extractName')
 
 class ControllerAnswer {
     static create(req, res, next) {
+        console.log('masuk create answer server')
         const url = req.file.cloudStoragePublicUrl
         const headers = {
             "Content-Type": "application/json",
@@ -29,13 +30,23 @@ class ControllerAnswer {
                         if (result.data.recognitionResults) {
                             const answers = extractAnswer(result.data)
                             const name = extractName(result.data)
-                            res.json({
-                                status: 'success',
-                                data: {
-                                    name,
-                                    answers,
+                            console.log('name', name)
+                            console.log('answers', answers)
+                            if (name.status === 'success' && answers.status === 'success') {
+                                res.json({
+                                    status: 'success',
+                                    data: {
+                                        name: name.data,
+                                        answers: answers.data,
+                                    }
+                                })
+                            } else {
+                                throw {
+                                    status: 'error',
+                                    data: 'take another photo'
                                 }
-                            })
+                            }
+                            
                         } else {
                             throw {
                                 status: 'error',
@@ -44,15 +55,18 @@ class ControllerAnswer {
                         }
                     })
                     .catch(err => {
-                        throw {
+                        res.json({
                             status: 'error',
                             data: 'take another photo'
-                        }
+                        })
                     })
             }, 10000)
         })
         .catch(err => {
-            res.json(err)
+            res.json({
+                status: 'error',
+                data: 'take another photo'
+            })
         })
         // Answer.create(input)
         //     .then(data => {

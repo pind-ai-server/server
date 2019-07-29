@@ -16,6 +16,7 @@ const getPublicUrl = (filename) => {
 }
 
 const sendUploadToGCS = (req, res, next) => {
+  console.log('masuk upload')
   if (req.file === undefined) {
     return next()
   }
@@ -51,7 +52,7 @@ const Multer = require('multer'),
       multer = Multer({
         storage: Multer.MemoryStorage,
         limits: {
-          fileSize: 5 * 1024 * 1024
+          fileSize: 10 * 1024 * 1024
         }
       })
 

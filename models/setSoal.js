@@ -11,7 +11,6 @@ const soalSchema = new Schema({
     },
     folderName : {
       type : String,
-      required : [true , 'foldername is required']
     },
     answerKey : Object,
     answers : [{type : Schema.Types.ObjectId, ref : "Answer"}]

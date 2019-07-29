@@ -22,6 +22,10 @@ let userSchema = new Schema({
     ],
         required : [true, 'email must be inserted'],
     },
+    photoUrl : {
+        type : String,
+        required : [true, 'photoUrl is required']  
+    },
     setSoal : [{type : Schema.Types.ObjectId, ref : "setSoal"}]
 })
 let User = mongoose.model('user',userSchema)

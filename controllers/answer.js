@@ -6,9 +6,8 @@ const setSoal = require('../models/setSoal')
 
 class ControllerAnswer {
     static create(req, res, next) {
-        console.log('masuk create answer server')
-        console.log('req.body =======',req.body.setSoalId)
-        console.log('req.file =======',req.file)
+        console.log('masuk tembak azure')
+        // console.log('req.file =======',req.file)
         const url = req.file.cloudStoragePublicUrl
         const headers = {
             "Content-Type": "application/json",
@@ -32,10 +31,12 @@ class ControllerAnswer {
                     .then((result) => {
                         console.log('ini result.data', result.data)
                         if (result.data.recognitionResults) {
+                            console.log('masuk create answer server')
                             const answers = extractAnswer(result.data)
                             const name = extractName(result.data)
                             console.log('name', name)
                             console.log('answers', answers)
+                            console.log('req.body =======',req.body.setSoalId)
                             if (name.status === 'success' && answers.status === 'success') {
                                 // Answer.create(req.body)
                                 //     .then(data => {

@@ -26,7 +26,7 @@ function extractName(data) {
       namePeserta = one
     }
   })
-  console.log('ini nama peserta', namePeserta)
+  // console.log('ini nama peserta', namePeserta)
   if (!namePeserta) {
     return {
       status: 'error',
@@ -53,7 +53,7 @@ function extractName(data) {
   ]
 
   lengthYFromNamaPeserta.forEach((one, index) => {
-    console.log('ini di extract name', one)
+    // console.log('ini di extract name', one)
     if ((one.length < minLenght 
       && !notAllowedText.includes(one.text)
       && !checkTglBlnThn(one.text)) 
@@ -66,7 +66,7 @@ function extractName(data) {
       }
     }
   })
-  console.log('ini minLengthText', minLengthText)
+  // console.log('ini minLengthText', minLengthText)
   // if name not found
   if (!minLengthText || minLenght > rangeName.maxRange) {
     minLenght = 0

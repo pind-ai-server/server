@@ -7,6 +7,8 @@ const setSoal = require('../models/setSoal')
 class ControllerAnswer {
     static create(req, res, next) {
         console.log('masuk create answer server')
+        console.log('req.body =======',req.body.setSoalId)
+        console.log('req.file =======',req.file)
         const url = req.file.cloudStoragePublicUrl
         const headers = {
             "Content-Type": "application/json",

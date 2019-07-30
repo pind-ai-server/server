@@ -27,6 +27,7 @@ class ControllerAnswer {
                     headers: headers
                 })
                     .then((result) => {
+                        console.log('ini result.data', result.data)
                         if (result.data.recognitionResults) {
                             const answers = extractAnswer(result.data)
                             const name = extractName(result.data)
@@ -55,6 +56,7 @@ class ControllerAnswer {
                         }
                     })
                     .catch(err => {
+                        console.log('ini err', err)
                         res.json({
                             status: 'error',
                             data: 'take another photo'
@@ -63,6 +65,7 @@ class ControllerAnswer {
             }, 10000)
         })
         .catch(err => {
+            console.log('ini err', err)
             res.json({
                 status: 'error',
                 data: 'take another photo'

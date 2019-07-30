@@ -38,18 +38,3 @@ answerSchema.pre('save', function (next) {
 let Answer = mongoose.model('Answer', answerSchema)
 
 module.exports = Answer
-
-const answerKey = {
-  "1": "A",
-  "2": "C",
-  "3": "D",
-  "4": "E",
-  "5": "B"
-}
-const answers = {
-  "1": "A",
-  "2": "C",
-  "3": "D",
-  "4": "E",
-  "5": "B"
-}

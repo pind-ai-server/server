@@ -13,6 +13,7 @@ const soalSchema = new Schema({
     type: String,
   },
   answerKey: Object,
+  passingGrade: Number,
   answers: [{ type: Schema.Types.ObjectId, ref: "Answer" }]
 }, { timestamps: true });
 

@@ -36,8 +36,8 @@ function answer(data) {
       index = i
       found = true
     }
-    console.log('ini accuracyIdentifier', accuracyIdentifier)
-    console.log('ini data.texgt', data.text)
+    // console.log('ini accuracyIdentifier', accuracyIdentifier)
+    // console.log('ini data.texgt', data.text)
     // nyunk
     // if (data.text === identifierAnswer) {
     //   index = i,
@@ -47,10 +47,10 @@ function answer(data) {
   if (found) {
     let result = {}
     let newData = DATA.slice(index + 1)
-    console.log('ini newData', newData)
+    // console.log('ini newData', newData)
     try {
       newData.forEach(data => {
-        console.log('ini data.text di answer', data.text)
+        // console.log('ini data.text di answer', data.text)
         tes.forEach(num => {
           if (data.text.includes(String(num))
             && !checkCharI(data.text)) {

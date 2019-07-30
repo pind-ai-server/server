@@ -38,6 +38,25 @@ class ControllerAnswer {
                             console.log('answers', answers)
                             console.log('req.body =======',req.body.setSoalId)
                             if (name.status === 'success' && answers.status === 'success') {
+                                let newAnswer = new Answer({
+                                    name: name.data,
+                                    answers: answers.data,
+                                    setSoalId: req.body.setSoalId,
+                                    imageUrl: req.file.cloudStoragePublicUrl
+                                })
+                                newAnswer.save()
+                                    .then(async answer => {
+                                        await setSoal.findOneAndUpdate({_id: answer.setSoalId}, { $push : { answers: answer._id} })
+                                        return answer
+                                    })
+                                    .then(answer => {
+                                        console.log(answer)
+                                        res.status(201).json({
+                                            status: 'success',
+                                            data: answer
+                                        })
+                                    })
+                                    .catch(next)
                                 // Answer.create(req.body)
                                 //     .then(data => {
                                 //         return setSoal.findOneAndUpdate({_id: data.setSoalId}, { $push : { answers: data._id} })
@@ -46,13 +65,6 @@ class ControllerAnswer {
                                 //     res.status(201).json(data)
                                 //     })
                                 //     .catch(next)
-                                res.json({
-                                    status: 'success',
-                                    data: {
-                                        name: name.data,
-                                        answers: answers.data,
-                                    }
-                                })
                             } else {
                                 throw {
                                     status: 'error',

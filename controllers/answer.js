@@ -42,9 +42,9 @@ class ControllerAnswer {
                                 //         return setSoal.findOneAndUpdate({_id: data.setSoalId}, { $push : { answers: data._id} })
                                 //     })
                                 //     .then(data => {
-                                //         res.status(201).json(data)
-                                        // } 
-                                        // .catch(next)
+                                //     res.status(201).json(data)
+                                //     })
+                                //     .catch(next)
                                 res.json({
                                     status: 'success',
                                     data: {
@@ -82,11 +82,7 @@ class ControllerAnswer {
                 data: 'take another photo'
             })
         })
-        // Answer.create(input)
-        //     .then(data => {
-        //         res.status(201).json(data)
-        //     })
-        //     .catch(next)
+        
     }
     static findAll(req, res, next) {
         Answer.find().populate('setSoalId')

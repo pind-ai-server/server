@@ -2,6 +2,7 @@ const Answer = require('../models/answer')
 const axios = require('axios')
 const extractAnswer = require('../helpers/extractAnswer')
 const extractName = require('../helpers/extractName')
+const setSoal = require('../models/setSoal')
 
 class ControllerAnswer {
     static create(req, res, next) {
@@ -34,6 +35,14 @@ class ControllerAnswer {
                             console.log('name', name)
                             console.log('answers', answers)
                             if (name.status === 'success' && answers.status === 'success') {
+                                // Answer.create(req.body)
+                                //     .then(data => {
+                                //         return setSoal.findOneAndUpdate({_id: data.setSoalId}, { $push : { answers: data._id} })
+                                //     })
+                                //     .then(data => {
+                                //         res.status(201).json(data)
+                                        // } 
+                                        // .catch(next)
                                 res.json({
                                     status: 'success',
                                     data: {

@@ -3,7 +3,6 @@ const User = require('../models/user')
 class ControllerSetSoal {
     static create(req, res, next) {
         let input = { ...req.body }
-
         let passData = ''
         Question.create(input)
             .then(data => {
@@ -24,7 +23,7 @@ class ControllerSetSoal {
             .catch(next)
     }
     static findOne(req, res, next) {
-        Question.findOne({ _id: req.params.id })
+        Question.findOne({ _id: req.params.id }).populate('answers')
             .then(user => {
                 res.status(200).json(user)
             })

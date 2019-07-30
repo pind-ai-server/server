@@ -98,7 +98,12 @@ function answer(data) {
           }
         })
       })
-      // console.log(newData)
+      // checking number 1 - 50
+      for (let x = 1; x <= 50; x++) {
+        if (!result[x]) {
+          result[x] = ''
+        }
+      }
       return {
         status: 'success',
         data: result

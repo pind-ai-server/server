@@ -44,7 +44,7 @@ class ControllerAnswer {
                                     setSoalId: req.body.setSoalId,
                                     imageUrl: req.file.cloudStoragePublicUrl
                                 })
-                                newAnswer.save()
+                                return newAnswer.save()
                                     .then(async answer => {
                                         await setSoal.findOneAndUpdate({_id: answer.setSoalId}, { $push : { answers: answer._id} })
                                         return answer

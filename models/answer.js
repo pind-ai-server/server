@@ -6,7 +6,7 @@ let answerSchema = new mongoose.Schema({
     type: String,
   },
   score: {
-    type: String,
+    type: Number,
   },
   answers: {
     type: Object,
@@ -28,12 +28,12 @@ answerSchema.pre('save', function (next) {
     let newAnswer = {}
 
     for (let key in data.answerKey) {
-      
+      newAnswer[key] = this.answers[key] 
     }
+    this.answers = newAnswer
 
     for (let key in data.answerKey) {
       if(this.answers[key] == data.answerKey[key]) score += 100/totalNumber
-      else score -= 100/totalNumber
     } 
     this.score = score
   })

@@ -145,13 +145,22 @@ class ControllerAnswer {
     }
     static update(req, res, next) {
         console.log('masuk edit answer client')
-        let input = { ...req.body }
+        console.log(req.body)
+        console.log(req.params.id)
+        // let input = { ...req.body }
         Answer.findOne({ _id: req.params.id })
             .then(data => {
-                let newAnswer = new Answer(input)
-                return newAnswer.save({_id : data._id})
+                console.log(data)
+                let option = {}
+                req.body.name && (option.name = req.body.name)
+                req.body.answers && (option.answers = req.body.answers)
+                req.body.setSoalId && (option.setSoalId = req.body.setSoalId)
+                req.body.imageUrl && (option.imageUrl = req.body.imageUrl)
+                data.set(option)
+                return data.save()
             })
             .then(data => {
+                console.log('hasil save', data)
                 console.log('success edit')
                 res.status(200).json(data)
             })

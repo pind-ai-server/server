@@ -42,7 +42,7 @@ class ControllerAnswer {
                                     name: name.data,
                                     answers: answers.data,
                                     setSoalId: req.body.setSoalId,
-                                    imageUrl: req.file.cloudStoragePublicUrl
+                                    imageUrl: req.file.cloudStoragePublicUrl    
                                 })
                                 return newAnswer.save()
                                     .then(async answer => {
@@ -112,9 +112,11 @@ class ControllerAnswer {
             .catch(next)
     }
     static update(req, res, next) {
+        console.log('masuk edit answer client')
         let input = { ...req.body }
         Answer.findOneAndUpdate({ _id: req.params.id }, input, { new: true })
             .then(data => {
+                console.log('success edit')
                 res.status(200).json(data)
             })
             .catch(next)

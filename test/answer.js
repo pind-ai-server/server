@@ -4,6 +4,7 @@ const app = require('../app')
 const { clearAllAnswer } = require('../helpers/clearAllAnswer')
 const { clearAllUser } = require('../helpers/clearAllUser')
 const { createSetSoal } = require('../helpers/createSetSoal')
+const fs = require('fs')
 
 chai.use(chaiHttp);
 const expect = chai.expect
@@ -18,40 +19,21 @@ after (async function () {
 })
 
 describe('Answer CRUD' , () => {
-    describe.only('POST /answers/', () => {
-        it('should return an object with 201 status code (new answer create)', function(done) {
-            let answerDataFake = {
-                name : 'bilal@mail.com',
-                score : '90',
-                answers: {
-                    "1": "A",
-                    "2": "A",
-                    "3": "A",
-                    "4": "A",
-                    "5": "A",
-                },
-                setSoalId: setSoal._id
-            }
-            chai
-                .request(app)
-                .post('/answers')
-                .send(answerDataFake)
-                .then(function(res) {
-                    answer = res.body
-                    expect(res).to.have.status(202)
-                    expect(res.body).to.be.a('object')
-                    expect(res.body).to.have.property('_id')
-                    expect(res.body).to.have.property('name')
-                    expect(res.body).to.have.property('score')
-                    expect(res.body).to.have.property('answers')
-                    expect(res.body).to.have.property('setSoalId')
-
-                    done()
-                })
-                .catch(err => {
-                    done()
-                })
-            })
+    describe('POST /answers/', () => {
+        it('should return an object with 201 status code (new answer create)',async function() {
+            let newSetSoalId = setSoal._id + ''
+            this.timeout(60000)
+            const res = await chai
+                                .request(app)
+                                .post('/answers')
+                                .attach("image",fs.readFileSync("./assets/ljk1.jpg"), "ljk1.jpg")
+                                .field("setSoalId", newSetSoalId)
+            answer = res.body
+            expect(res).to.have.status(201)
+            expect(res.body).to.be.a('object')
+            expect(res.body).to.have.property('data')
+                
+        }) 
     })
     describe ('GET /answers/', () => {
         it('should return an object with 200 status code', function(done) {
@@ -105,7 +87,7 @@ describe('Answer CRUD' , () => {
                 .then(function(res) {
                     expect(res).to.have.status(200)
                     expect(res.body).to.be.a('object')
-                    expect(res.body).to.have.property('_id')
+                    expect(res.body).to.have.property('data')
                     expect(res.body).to.have.property('name')
                     expect(res.body).to.have.property('score')
                     expect(res.body).to.have.property('answers')

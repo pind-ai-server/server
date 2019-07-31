@@ -30,7 +30,7 @@ answerSchema.pre('save', function (next) {
     for (let key in data.answerKey) {
       newAnswer[key] = this.answers[key] 
     }
-    this.answers = newAnswer
+    this.answers = Math.round(newAnswer)
 
     for (let key in data.answerKey) {
       if(this.answers[key] == data.answerKey[key]) score += 100/totalNumber

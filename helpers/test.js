@@ -6,6 +6,7 @@ module.exports = function (done){
     ]
     Promise.all(arrOfPromise)
         .then(()=>{
+            console.log('hapus semua set Soal')
             done()
         })
         .catch(err =>{

@@ -6,14 +6,9 @@ const mongooseConnect = require("../helpers/mongooseConnect")
 const mongoose = require('mongoose')
 chai.use(chaiHttp)
 
-before(function(done){
-    clearSoal(done)
-})
-
 after(function(done){
     clearSoal(done)
 })
-
 const expect = chai.expect
 
 let soal1 = ''

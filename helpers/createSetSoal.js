@@ -4,10 +4,18 @@ const User = require('../models/user')
 module.exports = {
     createSetSoal () {
         if(process.env.NODE_ENV === 'test') {
+            console.log('create set soal 1')
             let setSoalDataFake = {
                 title: 'Ujian Akhir Sekolah Kelas 10',
                 folderName: 'Matematika',
-                answerKey: {},
+                answerKey: {
+                    '1': 'A',
+                    '2': 'A',
+                    '3': 'E',
+                    '4': 'A',
+                    '5': 'B',
+
+                },
                 answers: [],
                 UserId: '1'
             }
@@ -27,6 +35,7 @@ module.exports = {
                     return User.findOneAndUpdate({ UserId: passData.UserId }, { $push: { setSoal: passData._id } }, { new: true })
                 })
                 .then(() => {
+                    console.log('create set soal berhasil final')
                     return passData
                 })
                 .catch(err => {

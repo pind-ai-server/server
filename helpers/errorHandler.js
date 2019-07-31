@@ -1,7 +1,6 @@
 /* istanbul ignore file */
 
 module.exports = function(err, req, res, next) {
-    console.log("ini errorr handler ===>",err)
     if (err.name == 'ValidationError'){
         let messages = []
         for(key in err.errors){

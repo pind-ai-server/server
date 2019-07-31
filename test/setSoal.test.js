@@ -26,6 +26,7 @@ describe("set soal test", function(){
                 userName : "pakguru",
                 email : "pak@mail.com",
                 UserId : "1234567890",
+                photoUrl: 'urlPhoto'
             }
 
             chai

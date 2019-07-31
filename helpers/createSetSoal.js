@@ -19,7 +19,8 @@ module.exports = {
                     return User.create({
                         userName: 'bilal Guru',
                         UserId: '1',
-                        email: 'bilalGuru@mail.com'
+                        email: 'bilalGuru@mail.com',
+                        photoUrl: 'urlPhoto'
                     })
                 })
                 .then(() => {

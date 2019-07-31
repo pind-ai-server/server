@@ -16,7 +16,8 @@ describe('User CRUD', function () {
             let user = {
                 email: 'bilal@mail.com',
                 userName: 'Bilal',
-                UserId: '1'
+                UserId: '1',
+                photoUrl: 'urlPhoto'
             }
             chai
                 .request(app)
@@ -62,7 +63,8 @@ describe('User CRUD', function () {
             let user = {
                 email: 'bilalmail.com',
                 userName: 'Bilal',
-                UserId: '1'
+                UserId: '1',
+                photoUrl: 'urlPhoto'
             }
             chai
                 .request(app)

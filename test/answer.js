@@ -18,13 +18,17 @@ after (async function () {
 })
 
 describe('Answer CRUD' , () => {
-    describe ('POST /answers/', () => {
+    describe.only('POST /answers/', () => {
         it('should return an object with 201 status code (new answer create)', function(done) {
             let answerDataFake = {
                 name : 'bilal@mail.com',
                 score : '90',
                 answers: {
-                    "1": "A"
+                    "1": "A",
+                    "2": "A",
+                    "3": "A",
+                    "4": "A",
+                    "5": "A",
                 },
                 setSoalId: setSoal._id
             }
@@ -34,7 +38,7 @@ describe('Answer CRUD' , () => {
                 .send(answerDataFake)
                 .then(function(res) {
                     answer = res.body
-                    expect(res).to.have.status(201)
+                    expect(res).to.have.status(202)
                     expect(res.body).to.be.a('object')
                     expect(res.body).to.have.property('_id')
                     expect(res.body).to.have.property('name')

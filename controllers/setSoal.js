@@ -3,7 +3,6 @@ const User = require('../models/user')
 let converter = require('json-2-csv')
 class ControllerSetSoal {
     static create(req, res, next) {
-        console.log('ini req body create', req.body);
         
         let input = { ...req.body }
         let passData = ''
@@ -13,7 +12,6 @@ class ControllerSetSoal {
                 return User.findOneAndUpdate({ UserId: data.UserId }, { $push: { setSoal: data._id } }, { new: true })
                 })
             .then(user =>{        
-                // console.log('hasil push ke user ini user',user);
                 res.status(201).json(passData)
             })
             .catch(next)
@@ -31,7 +29,6 @@ class ControllerSetSoal {
             .then(data => {
                 let arrayData = []
                 data.forEach(el =>{
-                    // console.log(el);
                     let subject = {}
                     subject.subjectTitle = el.title
                     let total = 0
@@ -65,23 +62,18 @@ class ControllerSetSoal {
                         sumQuestion += 1
                     }
                     subject.questionSum = sumQuestion
-                    console.log('ikii subject ==>', subject);
                     arrayData.push(subject)
                 })
                 return converter.json2csvAsync(arrayData,{delimiter : {wrap : false, field : ',', eol : '\n'},keys : ["subjectTitle","avgScore", "passedStudent", "failedStudent" , "passingGrade", "highestScore", "lowestScore", "questionSum"]} )
-
             })
             .then(data=>{
-                    console.log(data);
                     res.set({
                         'Content-Type': 'text/csv; charset=UTF-8',
                         'Content-Disposition': 'attachment; filename="summary.csv"',
                      });
                     res.send('\uFEFF' + data)
                 })
-            .catch(err =>{
-                console.log(err);
-            })
+            .catch(next)
     }
 
     static findOne(req, res, next) {

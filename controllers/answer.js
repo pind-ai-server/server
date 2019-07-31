@@ -7,8 +7,6 @@ let converter = require('json-2-csv')
 
 class ControllerAnswer {
     static create(req, res, next) {
-        console.log('masuk tembak azure')
-        // console.log('req.file =======',req.file)
         const url = req.file.cloudStoragePublicUrl
         const headers = {
             "Content-Type": "application/json",
@@ -30,14 +28,9 @@ class ControllerAnswer {
                     headers: headers
                 })
                     .then((result) => {
-                        console.log('ini result.data', result.data)
                         if (result.data.recognitionResults) {
-                            console.log('masuk create answer server')
                             const answers = extractAnswer(result.data)
                             const name = extractName(result.data)
-                            console.log('name', name)
-                            console.log('answers', answers)
-                            console.log('req.body =======',req.body.setSoalId)
                             if (name.status === 'success' && answers.status === 'success') {
                                 let newAnswer = new Answer({
                                     name: name.data,
@@ -57,14 +50,6 @@ class ControllerAnswer {
                                         })
                                     })
                                     .catch(next)
-                                // Answer.create(req.body)
-                                //     .then(data => {
-                                //         return setSoal.findOneAndUpdate({_id: data.setSoalId}, { $push : { answers: data._id} })
-                                //     })
-                                //     .then(data => {
-                                //     res.status(201).json(data)
-                                //     })
-                                //     .catch(next)
                             } else {
                                 throw {
                                     status: 'error',
@@ -72,7 +57,8 @@ class ControllerAnswer {
                                 }
                             }
                             
-                        } else {
+                        } 
+                        else {
                             throw {
                                 status: 'error',
                                 data: 'take another photo'
@@ -80,7 +66,6 @@ class ControllerAnswer {
                         }
                     })
                     .catch(err => {
-                        console.log('ini err', err)
                         res.json({
                             status: 'error',
                             data: 'take another photo'
@@ -89,7 +74,6 @@ class ControllerAnswer {
             }, 10000)
         })
         .catch(err => {
-            console.log('ini err', err)
             res.json({
                 status: 'error',
                 data: 'take another photo'
@@ -108,7 +92,6 @@ class ControllerAnswer {
     static generateCSV(req,res,next){
         Answer.find({setSoalId : req.params.setSoalId}).populate('setSoalId')
             .then(data => {
-                console.log(data);
                 let arrayData = []
                 data.forEach(el =>{
                     let student = {}
@@ -120,21 +103,17 @@ class ControllerAnswer {
                         student.status = "failed"
                     }
                     student.subjectName = el.setSoalId.title
-                    console.log('iki student booos', student);
                     arrayData.push(student)
                 })
                 return converter.json2csvAsync(arrayData,{delimiter : {wrap : false, field : ',', eol : '\n'},keys : ["subjectName","studentName", "score", "status"]} )
                 // res.status(200).json(data)
             })
             .then(data =>{
-                console.log(data);
-                    res.set({
-                        'Content-Type': 'text/csv; charset=UTF-8',
-                        'Content-Disposition': 'attachment; filename="file.csv"',
-                     });
+                    res.set({'Content-Type': 'text/csv; charset=UTF-8','Content-Disposition': 'attachment; filename="file.csv"',});
                     res.send('\uFEFF' + data)
             })
-            .catch(next)
+            .catch(err => {
+            })
     }
     static findOne(req, res, next) {
         Answer.findOne({ _id: req.params.id }).populate('setSoalId')
@@ -144,13 +123,9 @@ class ControllerAnswer {
             .catch(next)
     }
     static update(req, res, next) {
-        console.log('masuk edit answer client')
-        console.log(req.body)
-        console.log(req.params.id)
         // let input = { ...req.body }
         Answer.findOne({ _id: req.params.id })
             .then(data => {
-                console.log(data)
                 let option = {}
                 req.body.name && (option.name = req.body.name)
                 req.body.answers && (option.answers = req.body.answers)
@@ -160,8 +135,6 @@ class ControllerAnswer {
                 return data.save()
             })
             .then(data => {
-                console.log('hasil save', data)
-                console.log('success edit')
                 res.status(200).json(data)
             })
             .catch(next)

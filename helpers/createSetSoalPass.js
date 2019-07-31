@@ -2,7 +2,7 @@ const setSoal = require('../models/setSoal')
 const User = require('../models/user')
 /* istanbul ignore file */
 module.exports = {
-    createSetSoal () {
+    createSetSoalPass () {
         if(process.env.NODE_ENV === 'test') {
             let setSoalDataFake = {
                 title: 'Ujian Akhir Sekolah Kelas 10',
@@ -15,7 +15,7 @@ module.exports = {
                     '5': 'B',
 
                 },
-                passingGrade: 70,
+                passingGrade: 10,
                 answers: [],
                 UserId: '1'
             }

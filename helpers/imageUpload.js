@@ -16,9 +16,8 @@ const getPublicUrl = (filename) => {
 }
 
 const sendUploadToGCS = (req, res, next) => {
-  console.log('masuk upload')
+  /* istanbul ignore else */
   if (req.file === undefined) {
-    console.log('error multer undifinied')
     return next()
   }
 
@@ -30,16 +29,16 @@ const sendUploadToGCS = (req, res, next) => {
       contentType: req.file.mimetype
     }
   })
-
+  /* istanbul ignore next */
   stream.on('error', (err) => {
-    console.log('error upload to GCS broo')
+  /* istanbul ignore next */
     req.file.cloudStorageError = err
+    /* istanbul ignore next */
     next(err)
   })
 
   stream.on('finish', () => {
     req.file.cloudStorageObject = gcsname
-    console.log('udah berhasil upload to gcs', gcsname)
     file.makePublic().then(() => {
       req.file.cloudStoragePublicUrl = getPublicUrl(gcsname)
       next()

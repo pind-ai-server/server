@@ -1,7 +1,6 @@
-/* istanbul ignore else */
+/* istanbul ignore next */
 if (process.env.NODE_ENV || process.env.NODE_ENV == 'development') {
    require('dotenv').config()
-   console.log('masuk dotenv')
 }
 const express = require('express')
 const cors = require('cors')

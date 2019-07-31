@@ -39,11 +39,8 @@ function checkResultImage(url_image) {
         })
           .then((result) => {
             if (result.data) {
-              // console.log('ini data hasil dari microsoft', result.data)
                 const answers = answer(result.data)
                 const name = extractName(result.data)
-                console.log('status answers', answers.status)
-                console.log('status name', name.status)
                 if (answers.status === 'error' || name.status === 'error') {
                   resolve( {
                     status: 'error',
@@ -68,7 +65,6 @@ function checkResultImage(url_image) {
       , 10000)
     })
     .catch(err => {
-        console.log('mmasuk catch getimage', err)
         reject(err)
     })
   })
@@ -101,28 +97,22 @@ async function readStorage() {
     return listResult
   }
   catch(err) {
-    console.log(err)
   }
 }
 
 async function main() {
   try {
     let listFiles = await readStorage()
-    console.log('start check result image', listFiles)
-    console.log('start check result image', listFiles.length)
     let promisesTextResult = []
     let textResults = []
     for (let x = 0; x < listFiles.length; x++) {
-      console.log('checking listFiles', listFiles[x])
       let misal = await checkResultImage(listFiles[x])
-      console.log('misal', misal)
       if (misal.status === 'error') {
         continue
       }
       textResults.push(misal)
     }
 
-    console.log('#######################ini result Text', textResults)
     // return { name, answers }
     // name : length, range, text
     // answers : status, data
@@ -135,7 +125,6 @@ async function main() {
     let allTrueText = []
     textResults.forEach((oneSetAnswer) => {
       // calculate answer accuracy
-      // console.log('ini onesetanswer', oneSetAnswer)
       let trueAnswer = 0
       let falseAnswer = 0
       Object.keys(oneSetAnswer.answers.data).forEach((answerNum) => {
@@ -144,9 +133,6 @@ async function main() {
         } else {
           falseAnswer++
         }
-        // console.log('ini oneSetAnswer.answers[answerNum]', oneSetAnswer.answers.data[answerNum])
-        // console.log('ini answerTrueKey[answerNum]', answerTrueKey[answerNum])
-        // console.log('ini truAnswer', trueAnswer)
       })
       let answerAccuracy = trueAnswer / totalQuestionAnswerTrueKey
       totalAnswerAccuracy += answerAccuracy
@@ -164,11 +150,6 @@ async function main() {
       })
       let nameAccuracy = trueChar / nameJoin.length
       totalNameAccuracy += nameAccuracy
-      console.log('ini nameJoin', nameJoin)
-      console.log('ini nameTrueKey[oneSetAnswer.url_image]', nameTrueKey[oneSetAnswer.url_image])
-      console.log('url_image', oneSetAnswer.url_image)
-      console.log('result', nameJoin === nameTrueKey[oneSetAnswer.url_image])
-      console.log('nameaccuracy', nameAccuracy)
 
       if (nameAccuracy > 0.8) {
         allTrueText.push(oneSetAnswer)
@@ -185,21 +166,15 @@ async function main() {
     })
     let answersAccuracy = totalAnswerAccuracy / textResults.length
     let namesAccuracy = totalNameAccuracy / textResults.length
-    console.log('average answer accuracy', answersAccuracy)
-    console.log('average name accuracy', namesAccuracy)
 
     // Calculate range name position
     function getAverageMinMax(data) {
-      console.log('ini data', data)
       let average = data.reduce((acc, text) => {
         return acc + text.name.length
       }, 0) / data.length
       let arrNameLengthFromPosition = data.map((one) => one.name.length)
       let minRange = arrNameLengthFromPosition.reduce((min,val) => Math.min(min,val), arrNameLengthFromPosition[0]);
       let maxRange = arrNameLengthFromPosition.reduce((min,val) => Math.max(min,val), arrNameLengthFromPosition[0]);
-      console.log('average', average)
-      console.log('minRange', minRange);
-      console.log('maxRange', maxRange);
       return {
         "average": average,
         "minRange": minRange,
@@ -211,7 +186,6 @@ async function main() {
     fs.writeFileSync('namePosition.json', JSON.stringify({ rangeModelAll, rangeModelBest }))
   }
   catch(err) {
-    console.log(err)
   }
 }
 

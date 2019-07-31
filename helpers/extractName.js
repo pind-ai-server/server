@@ -4,6 +4,7 @@ function checkTglBlnThn(text) {
   let textTglBlnThn = ['Tgl', 'Bln', 'Bin', 'Thn', 'Tg!', 'The', 'Tol']
   for (let x = 0; x < textTglBlnThn.length; x++) {
     let one = textTglBlnThn[x]
+    /* istanbul ignore next */
     if (text.includes(one)) {
       return true
     }
@@ -26,7 +27,6 @@ function extractName(data) {
       namePeserta = one
     }
   })
-  // console.log('ini nama peserta', namePeserta)
   if (!namePeserta) {
     return {
       status: 'error',
@@ -53,7 +53,6 @@ function extractName(data) {
   ]
 
   lengthYFromNamaPeserta.forEach((one, index) => {
-    // console.log('ini di extract name', one)
     if ((one.length < minLenght 
       && !notAllowedText.includes(one.text)
       && !checkTglBlnThn(one.text)) 
@@ -66,8 +65,8 @@ function extractName(data) {
       }
     }
   })
-  // console.log('ini minLengthText', minLengthText)
   // if name not found
+  /* istanbul ignore next */
   if (!minLengthText || minLenght > rangeName.maxRange) {
     minLenght = 0
     minLenghtIndex = 0
@@ -77,9 +76,6 @@ function extractName(data) {
     }
   }
 
-  // console.log('ini nilai minLength', minLenght)
-  // console.log('ini nilai minLengthIndex', minLenghtIndex)
-  // console.log('ini nilai minLengthText', minLengthText)
   return minLengthText
 }
 

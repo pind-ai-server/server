@@ -6,6 +6,7 @@ function checkCharI(text) {
     if (char === 'I') {
       countI++
     }
+    /* istanbul ignore next */
     if (countI > 1) {
       return true
     }
@@ -36,21 +37,12 @@ function answer(data) {
       index = i
       found = true
     }
-    // console.log('ini accuracyIdentifier', accuracyIdentifier)
-    // console.log('ini data.texgt', data.text)
-    // nyunk
-    // if (data.text === identifierAnswer) {
-    //   index = i,
-    //   found = true
-    // }
   })
   if (found) {
     let result = {}
     let newData = DATA.slice(index + 1)
-    // console.log('ini newData', newData)
     try {
       newData.forEach(data => {
-        // console.log('ini data.text di answer', data.text)
         tes.forEach(num => {
           if (data.text.includes(String(num))
             && !checkCharI(data.text)) {
@@ -72,12 +64,6 @@ function answer(data) {
               }
               prevChar = char
             })
-            
-            // nyunk
-            // let key = data.text.split('.')[0].replace(/ /g, '')
-            // let value = data.text.split('.')[1].replace(/ /g, '')
-            // console.log(key)
-            // console.log(value)
             alphabeth.forEach((a, i) => {
               if (value.includes(a)) {
                 check[i] = true
@@ -86,6 +72,7 @@ function answer(data) {
             let answer = ''
             let count = 0
             check.forEach((c, i) => {
+              /* istanbul ignore next */
               if (count > 1) {
                 answer = ''
               } else if (c === false) {
@@ -93,7 +80,6 @@ function answer(data) {
                 count = count + 1
               }
             })
-            // console.log(check)
             result[key] = answer
           }
         })
@@ -108,8 +94,10 @@ function answer(data) {
         status: 'success',
         data: result
       }
-    } catch (error) {
-      console.log('ini error answer', error)
+    }
+    /* istanbul ignore next */
+     catch (error) {
+    /* istanbul ignore next */
       return {
         status: 'error',
         data: 'take another photo'

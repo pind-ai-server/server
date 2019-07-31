@@ -43,7 +43,7 @@ class ControllerAnswer {
                                     name: name.data,
                                     answers: answers.data,
                                     setSoalId: req.body.setSoalId,
-                                    imageUrl: req.file.cloudStoragePublicUrl    
+                                    imageUrl: req.file.cloudStoragePublicUrl
                                 })
                                 return newAnswer.save()
                                     .then(async answer => {

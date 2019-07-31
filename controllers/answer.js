@@ -2,9 +2,12 @@ const Answer = require('../models/answer')
 const axios = require('axios')
 const extractAnswer = require('../helpers/extractAnswer')
 const extractName = require('../helpers/extractName')
+const setSoal = require('../models/setSoal')
 
 class ControllerAnswer {
     static create(req, res, next) {
+        console.log('masuk tembak azure')
+        // console.log('req.file =======',req.file)
         const url = req.file.cloudStoragePublicUrl
         const headers = {
             "Content-Type": "application/json",
@@ -26,16 +29,49 @@ class ControllerAnswer {
                     headers: headers
                 })
                     .then((result) => {
+                        console.log('ini result.data', result.data)
                         if (result.data.recognitionResults) {
+                            console.log('masuk create answer server')
                             const answers = extractAnswer(result.data)
                             const name = extractName(result.data)
-                            res.json({
-                                status: 'success',
-                                data: {
-                                    name,
-                                    answers,
+                            console.log('name', name)
+                            console.log('answers', answers)
+                            console.log('req.body =======',req.body.setSoalId)
+                            if (name.status === 'success' && answers.status === 'success') {
+                                let newAnswer = new Answer({
+                                    name: name.data,
+                                    answers: answers.data,
+                                    setSoalId: req.body.setSoalId,
+                                    imageUrl: req.file.cloudStoragePublicUrl
+                                })
+                                return newAnswer.save()
+                                    .then(async answer => {
+                                        await setSoal.findOneAndUpdate({_id: answer.setSoalId}, { $push : { answers: answer._id} })
+                                        return answer
+                                    })
+                                    .then(answer => {
+                                        console.log(answer)
+                                        res.status(201).json({
+                                            status: 'success',
+                                            data: answer
+                                        })
+                                    })
+                                    .catch(next)
+                                // Answer.create(req.body)
+                                //     .then(data => {
+                                //         return setSoal.findOneAndUpdate({_id: data.setSoalId}, { $push : { answers: data._id} })
+                                //     })
+                                //     .then(data => {
+                                //     res.status(201).json(data)
+                                //     })
+                                //     .catch(next)
+                            } else {
+                                throw {
+                                    status: 'error',
+                                    data: 'take another photo'
                                 }
-                            })
+                            }
+                            
                         } else {
                             throw {
                                 status: 'error',
@@ -44,31 +80,32 @@ class ControllerAnswer {
                         }
                     })
                     .catch(err => {
-                        throw {
+                        console.log('ini err', err)
+                        res.json({
                             status: 'error',
                             data: 'take another photo'
-                        }
+                        })
                     })
             }, 10000)
         })
         .catch(err => {
-            res.json(err)
+            console.log('ini err', err)
+            res.json({
+                status: 'error',
+                data: 'take another photo'
+            })
         })
-        // Answer.create(input)
-        //     .then(data => {
-        //         res.status(201).json(data)
-        //     })
-        //     .catch(next)
+        
     }
     static findAll(req, res, next) {
-        Answer.find()
+        Answer.find().populate('setSoalId')
             .then(data => {
                 res.status(200).json(data)
             })
             .catch(next)
     }
     static findOne(req, res, next) {
-        Answer.findOne({ _id: req.params.id })
+        Answer.findOne({ _id: req.params.id }).populate('setSoalId')
             .then(data => {
                 res.status(200).json(data)
             })

@@ -50,7 +50,6 @@ class ControllerAnswer {
                                         return answer
                                     })
                                     .then(answer => {
-                                        console.log(answer)
                                         res.status(201).json({
                                             status: 'success',
                                             data: answer
@@ -114,7 +113,11 @@ class ControllerAnswer {
     static update(req, res, next) {
         console.log('masuk edit answer client')
         let input = { ...req.body }
-        Answer.findOneAndUpdate({ _id: req.params.id }, input, { new: true })
+        Answer.findOne({ _id: req.params.id })
+            .then(data => {
+                let newAnswer = new Answer(input)
+                return newAnswer.save({_id : data._id})
+            })
             .then(data => {
                 console.log('success edit')
                 res.status(200).json(data)

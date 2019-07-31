@@ -36,8 +36,8 @@ answerSchema.pre('save', function (next) {
       if(this.answers[key] == data.answerKey[key]) score += 100/totalNumber
     } 
     this.score = score
+    next()
   })
-  next()
 })
 
 let Answer = mongoose.model('Answer', answerSchema)

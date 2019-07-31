@@ -3,6 +3,7 @@ const axios = require('axios')
 const extractAnswer = require('../helpers/extractAnswer')
 const extractName = require('../helpers/extractName')
 const setSoal = require('../models/setSoal')
+let converter = require('json-2-csv')
 
 class ControllerAnswer {
     static create(req, res, next) {
@@ -97,9 +98,41 @@ class ControllerAnswer {
         
     }
     static findAll(req, res, next) {
-        Answer.find().populate('setSoalId')
+        Answer.find({}).populate('setSoalId')
             .then(data => {
                 res.status(200).json(data)
+            })
+            .catch(next)
+    }
+
+    static generateCSV(req,res,next){
+        Answer.find({setSoalId : req.params.setSoalId}).populate('setSoalId')
+            .then(data => {
+                console.log(data);
+                let arrayData = []
+                data.forEach(el =>{
+                    let student = {}
+                    student.studentName = el.name
+                    student.score = el.score
+                    if(el.score >= el.setSoalId.passingGrade){
+                        student.status = "passing"
+                    }else{
+                        student.status = "failed"
+                    }
+                    student.subjectName = el.setSoalId.title
+                    console.log('iki student booos', student);
+                    arrayData.push(student)
+                })
+                return converter.json2csvAsync(arrayData,{delimiter : {wrap : false, field : ',', eol : '\n'},keys : ["subjectName","studentName", "score", "status"]} )
+                // res.status(200).json(data)
+            })
+            .then(data =>{
+                console.log(data);
+                    res.set({
+                        'Content-Type': 'text/csv; charset=UTF-8',
+                        'Content-Disposition': 'attachment; filename="file.csv"',
+                     });
+                    res.send('\uFEFF' + data)
             })
             .catch(next)
     }
